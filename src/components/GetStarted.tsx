@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { formatPhoneDisplay, iMessageNumber } from "../config";
+import { SignupForm } from "./SignupForm";
 
 const firstMessages = [
   "Alert me on CPI and FOMC, threshold 0.5",
@@ -8,45 +7,16 @@ const firstMessages = [
 ];
 
 export function GetStarted() {
-  const [copied, setCopied] = useState(false);
-
-  async function copyNumber() {
-    try {
-      await navigator.clipboard.writeText(iMessageNumber);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* ignore */
-    }
-  }
-
   return (
     <div className="get-started">
-      <div className="get-started-number-block">
-        <p className="get-started-label">Text on iMessage (blue bubble)</p>
-        <button
-          type="button"
-          className="get-started-number"
-          onClick={copyNumber}
-          aria-label={`Copy number ${iMessageNumber}`}
-        >
-          {formatPhoneDisplay(iMessageNumber)}
-        </button>
-        <p className="get-started-copy-hint">
-          {copied ? "Copied — paste into Messages" : "Tap to copy, then open Messages"}
-        </p>
+      <div className="get-started-signup">
+        <SignupForm />
       </div>
 
       <div className="get-started-grid">
         <div className="get-started-card">
-          <h3>No register keyword</h3>
-          <p>
-            Your first text starts your session. Say what you want to track — no
-            invite code required.
-          </p>
-        </div>
-        <div className="get-started-card">
           <h3>First message ideas</h3>
+          <p>No special keyword — set preferences in plain English:</p>
           <ul className="get-started-examples">
             {firstMessages.map((msg) => (
               <li key={msg}>
@@ -58,6 +28,11 @@ export function GetStarted() {
         <div className="get-started-card">
           <h3>What happens next</h3>
           <ol className="get-started-steps-inline">
+            <li>
+              Signup links your iMessage number and gives you a{" "}
+              <strong>personal Hawkish line</strong> to text (shown on
+              confirmation).
+            </li>
             <li>You get a reply confirming saved preferences.</li>
             <li>
               Macro alerts arrive when headlines match your keywords, watchlist,
@@ -67,6 +42,14 @@ export function GetStarted() {
               Watchlist changes can take a few seconds to sync to the news engine.
             </li>
           </ol>
+        </div>
+        <div className="get-started-card">
+          <h3>Texted before you signed up?</h3>
+          <p>
+            A &ldquo;need to register&rdquo; reply is usually{" "}
+            <strong>Photon&apos;s gate</strong>, not Hawkish — your number wasn&apos;t
+            linked to our project yet. Request access above first.
+          </p>
         </div>
       </div>
 
@@ -78,11 +61,11 @@ export function GetStarted() {
             SMS (green bubble) is not supported.
           </li>
           <li>
-            <strong>Plain text</strong> — preferences and follow-ups; no slash commands.
+            <strong>Same phone as signup</strong> — text from the number you
+            registered; each signup gets its own Hawkish line to message.
           </li>
           <li>
-            <strong>Shared Photon line?</strong> Link the user&apos;s sending number to
-            your project in the Photon dashboard so inbound texts reach the agent.
+            <strong>Plain text</strong> — preferences and follow-ups; no slash commands.
           </li>
         </ul>
       </aside>

@@ -17,5 +17,10 @@
     "noUncheckedSideEffectImports": true,
     "types": ["node"]
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "vite.config.ts",
+    "vite-plugin-waitlist.ts",
+    "server/**/*.ts",
+    "api/**/*.ts"
+  ]
 }

@@ -1,57 +1,69 @@
 # Hawkish landing page
 
-Static marketing site for **Hawkish** — macro news alerts over iMessage. Pairs with the macro-alert-ai-agent repo; users **text the line** to start (no web signup required).
+Static marketing site for **Hawkish** — macro news alerts over iMessage. Pairs with the macro-alert-ai-agent repo.
+
+Users **request access** with their iMessage phone number; signup calls Photon’s API to add them as a **dedicated** user on your line, then they text Hawkish on iMessage.
 
 ## Stack
 
 - React 19 + TypeScript
 - Vite (static build → `dist/`)
+- `/api/waitlist` — Photon Spectrum user provisioning (Vite dev middleware + Vercel serverless)
 
 ## Develop
 
 ```bash
 npm install
-cp .env.example .env   # then set VITE_IMESSAGE_NUMBER to your real Photon line
+cp .env.example .env
+# Set VITE_IMESSAGE_NUMBER, PHOTON_PROJECT_ID, PHOTON_PROJECT_SECRET
 npm run dev
 ```
 
-If `npm run dev` fails with “Missing VITE_IMESSAGE_NUMBER”, you need a `.env` file (gitignored) — copy from `.env.example` and replace the placeholder number.
+**After editing `.env`, restart the dev server** (Ctrl+C, then `npm run dev` again).
 
-**After editing `.env`, restart the dev server** (Ctrl+C, then `npm run dev` again). Vite only reads env vars at startup. If the port was “in use”, an old server may still be serving the previous number — stop it or close that terminal tab, then start fresh.
-
-Open [http://localhost:5173](http://localhost:5173).
+Open the URL Vite prints (usually http://localhost:5173). The signup form POSTs to `/api/waitlist`, which creates a dedicated Photon user for your Hawkish line.
 
 ## Configure
 
 | Variable | Purpose |
 | --- | --- |
-| `VITE_IMESSAGE_NUMBER` | Number users text (dedicated line from `npm run info`, or Photon shared number) |
+| `VITE_IMESSAGE_NUMBER` | Optional display fallback; on Pro, each user gets their own line at signup (returned as `textLine`) |
+| `PHOTON_PROJECT_ID` | Spectrum project id (dashboard → Settings) |
+| `PHOTON_PROJECT_SECRET` | Spectrum project secret (server-only) |
+| `PHOTON_USER_TYPE` | `shared` (Pro default), `dedicated` (Business line), or `auto` (try dedicated, fall back to shared) |
+| `PHOTON_ASSIGNED_PHONE_NUMBER` | For `dedicated` only; defaults to `VITE_IMESSAGE_NUMBER` |
+| `VITE_WAITLIST_URL` | Optional override for signup POST URL (default `/api/waitlist`) |
 
-Build-time env only — rebuild after changing `.env`.
+Pro plan supports up to **100** dedicated/shared users via the API.
 
 ## Build & deploy
 
 ```bash
 npm run build
-npm run preview   # optional: serve dist locally
+npm run preview   # serves /api/waitlist via the same Vite plugin
 ```
 
-Deploy `dist/` to any static host (Netlify, Vercel, Cloudflare Pages, etc.).
+### Vercel (recommended)
 
-## Landing page ↔ agent
+Deploy the repo to Vercel. Set the same env vars in the project settings. `api/waitlist.ts` runs as a serverless function; `vercel.json` rewrites other routes to the SPA.
 
-Recommended flow (see agent repo onboarding doc):
+### Other static hosts
 
-1. **CTA** — Text `VITE_IMESSAGE_NUMBER` on iMessage (blue bubble).
-2. **First messages** — Examples on the page (CPI/FOMC, watchlist, threshold).
-3. **Requirements** — iMessage only; shared-line users linked in Photon dashboard.
-4. **No web registration** — First text creates the user session in the agent.
+Host `dist/` only if you also deploy `/api/waitlist` somewhere (or set `VITE_WAITLIST_URL` to that endpoint). Do not expose `PHOTON_PROJECT_SECRET` in the browser.
 
-The site does not call the agent API unless you add web signup later.
+## User flow (landing page ↔ Photon ↔ agent)
+
+1. User submits **phone** (and optional email) on the site.
+2. **`/api/waitlist`** calls Photon’s create-user API. **Pro** uses `type: "shared"` (allowlist by phone; Photon returns the line to text). **Business** with a dedicated line can set `PHOTON_USER_TYPE=dedicated`.
+3. User texts their **personal line** from signup (Pro/shared) or your dedicated Hawkish line (Business).
+4. Agent handles prefs and alerts once Photon delivers `[iMessage]` events.
+
+If someone texts before step 2 succeeds, Photon may show a registration gate — that is not Hawkish (`ts_agent` won’t log the message).
 
 ## Customize
 
 - Copy and sections: `src/App.tsx`
-- Get started block: `src/components/GetStarted.tsx`
-- Phone number env: `src/config.ts`
+- Signup + get started: `src/components/SignupForm.tsx`, `src/components/GetStarted.tsx`
+- Photon API: `server/photon.ts`, `server/waitlist.ts`
+- Phone display: `src/config.ts`
 - Styles: `src/App.css`, `src/index.css`

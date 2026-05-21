@@ -1,5 +1,4 @@
 import { GetStarted } from "./components/GetStarted";
-import { formatPhoneDisplay, iMessageNumber } from "./config";
 import "./App.css";
 
 const features = [
@@ -32,18 +31,23 @@ const features = [
 const steps = [
   {
     n: "01",
-    title: "Text our iMessage line",
-    body: `Open Messages and text ${formatPhoneDisplay(iMessageNumber)}. Blue bubble only — not SMS.`,
+    title: "Request access",
+    body: "Submit the phone number you use on iMessage. We register it with Photon so your texts reach Hawkish.",
   },
   {
     n: "02",
-    title: "Say what you want",
-    body: "No signup keyword — e.g. “Alert me on CPI and FOMC, watch NVDA, threshold 0.5.” You get a confirmation reply with your current settings.",
+    title: "Text your Hawkish line",
+    body: "After signup you get a personal iMessage number to text. Use that line from the phone you registered — not someone else's.",
   },
   {
     n: "03",
-    title: "Get proactive alerts",
-    body: "When macro news matches your filters with enough severity and source trust, your phone buzzes. Reply in-thread to dig deeper.",
+    title: "Set preferences",
+    body: "In plain English — e.g. CPI, FOMC, watch NVDA, threshold 0.5. Blue bubble only — not SMS.",
+  },
+  {
+    n: "04",
+    title: "Get macro alerts",
+    body: "You get a confirmation reply when prefs are saved; alerts follow when headlines match your keywords, watchlist, and thresholds.",
   },
 ];
 
@@ -63,7 +67,7 @@ export default function App() {
           <a href="#features">Features</a>
           <a href="#how-it-works">How it works</a>
           <a href="#get-started" className="nav-cta">
-            Get started
+            Request access
           </a>
         </nav>
       </header>
@@ -79,11 +83,12 @@ export default function App() {
             <p className="hero-lead">
               Hawkish watches CPI, the Fed, your tickers, and the stories you care
               about — then texts you when severity and source trust clear your bar.
-              Text the line to start; no app install and no web account.
+              Request access first; signup gives you a personal line to text for
+              alerts.
             </p>
             <div className="hero-cta">
               <a href="#get-started" className="btn btn-primary">
-                Text us on iMessage
+                Request access
               </a>
               <a href="#how-it-works" className="btn btn-ghost">
                 See how it works
@@ -132,8 +137,8 @@ export default function App() {
             <h2>Everything you need, nothing you don&apos;t</h2>
             <p>
               A C++ news engine filters the firehose. A TypeScript agent scores
-              each headline with Grok and routes alerts per chat — over iMessage.
-              Each thread is its own user; no separate signup API.
+              each headline with Grok and routes alerts per chat — over iMessage,
+              once your number is on the list.
             </p>
           </div>
           <ul className="feature-grid">
@@ -151,10 +156,10 @@ export default function App() {
             <p className="eyebrow">Talk like a human</p>
             <h2>No commands. Just text.</h2>
             <p>
-              Add keywords, watch tickers, raise your threshold, or filter to
-              reputable sources — in one message or across a conversation.
-              Settings merge incrementally; a bad parse won&apos;t wipe what you
-              saved.
+              After you&apos;re enabled, add keywords, watch tickers, raise your
+              threshold, or filter to reputable sources — in one message or across
+              a conversation. Settings merge incrementally; a bad parse won&apos;t
+              wipe what you saved.
             </p>
             <ul className="phrase-list">
               <li>
@@ -190,11 +195,11 @@ export default function App() {
         <section id="how-it-works" className="section steps">
           <div className="section-head section-head--center">
             <p className="eyebrow">How it works</p>
-            <h2>From first text to your first alert</h2>
+            <h2>From request to your first alert</h2>
             <p className="section-head-sub">
-              The landing page doesn&apos;t register you — texting the line does.
-              Spectrum delivers your thread to the agent; preferences are saved for
-              that conversation.
+              Photon must route your iMessage to our agent before Hawkish can reply.
+              Request access here — signup links your number in Photon, then you
+              text the line.
             </p>
           </div>
           <ol className="step-list">
@@ -211,11 +216,11 @@ export default function App() {
         <section id="get-started" className="section get-started-section">
           <div className="get-started-inner">
             <p className="eyebrow">Get started</p>
-            <h2>Text the line. You&apos;re in.</h2>
+            <h2>Request access, then text the line</h2>
             <p className="get-started-lead">
-              No web signup, invite code, or <code>REGISTER</code> message. Anyone
-              who can iMessage the public line can set preferences on first contact
-              and receive alerts when news matches.
+              Submit the phone you&apos;ll use on iMessage. Signup registers you with
+              Photon and shows your personal Hawkish line — then text preferences
+              and receive macro alerts. Texting before signup won&apos;t reach Hawkish.
             </p>
             <GetStarted />
           </div>

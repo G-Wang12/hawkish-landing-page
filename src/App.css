@@ -459,7 +459,13 @@ main {
 
 @media (min-width: 700px) {
   .step-list {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .step-list {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -519,6 +525,111 @@ main {
 .get-started-lead code {
   font-size: 0.9em;
   color: var(--accent);
+}
+
+.get-started-signup {
+  margin-bottom: 0.5rem;
+}
+
+.get-started-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.get-started-divider::before,
+.get-started-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.signup-form {
+  text-align: left;
+  max-width: 24rem;
+  margin: 0 auto;
+}
+
+.signup-field {
+  margin-bottom: 1rem;
+}
+
+.signup-field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.signup-optional {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.signup-field input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-deep);
+  color: var(--text);
+}
+
+.signup-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.signup-field-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.signup-submit {
+  width: 100%;
+  margin-top: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.signup-submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.signup-error {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--bearish);
+}
+
+.signup-success {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.signup-success-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin: 0 0 0.35rem;
+  color: var(--accent);
+}
+
+.signup-success-body {
+  margin: 0;
+  color: var(--text-muted);
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .get-started-number-block {
