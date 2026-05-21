@@ -1,0 +1,62 @@
+:root {
+  --bg-deep: #0a0d10;
+  --bg-surface: #12171d;
+  --bg-elevated: #1a222b;
+  --border: rgba(212, 165, 116, 0.14);
+  --border-strong: rgba(212, 165, 116, 0.28);
+  --text: #e8edf2;
+  --text-muted: #8b9aab;
+  --accent: #d4a574;
+  --accent-dim: #a67c52;
+  --accent-glow: rgba(212, 165, 116, 0.22);
+  --bearish: #e07a6a;
+  --bullish: #6bc9a0;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --max-width: 1120px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg-deep);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input {
+  font: inherit;
+}
