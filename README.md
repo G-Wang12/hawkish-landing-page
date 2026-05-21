@@ -1,6 +1,6 @@
 # Hawkish landing page
 
-Static marketing site for **Hawkish** — macro news alerts over iMessage (companion to the [macro-alert-ai-agent](https://github.com) project).
+Static marketing site for **Hawkish** — macro news alerts over iMessage. Pairs with the macro-alert-ai-agent repo; users **text the line** to start (no web signup required).
 
 ## Stack
 
@@ -11,34 +11,47 @@ Static marketing site for **Hawkish** — macro news alerts over iMessage (compa
 
 ```bash
 npm install
+cp .env.example .env   # then set VITE_IMESSAGE_NUMBER to your real Photon line
 npm run dev
 ```
 
+If `npm run dev` fails with “Missing VITE_IMESSAGE_NUMBER”, you need a `.env` file (gitignored) — copy from `.env.example` and replace the placeholder number.
+
+**After editing `.env`, restart the dev server** (Ctrl+C, then `npm run dev` again). Vite only reads env vars at startup. If the port was “in use”, an old server may still be serving the previous number — stop it or close that terminal tab, then start fresh.
+
 Open [http://localhost:5173](http://localhost:5173).
 
-## Build
+## Configure
+
+| Variable | Purpose |
+| --- | --- |
+| `VITE_IMESSAGE_NUMBER` | Number users text (dedicated line from `npm run info`, or Photon shared number) |
+
+Build-time env only — rebuild after changing `.env`.
+
+## Build & deploy
 
 ```bash
 npm run build
 npm run preview   # optional: serve dist locally
 ```
 
-Deploy the `dist/` folder to any static host (Netlify, Vercel, Cloudflare Pages, S3, etc.).
+Deploy `dist/` to any static host (Netlify, Vercel, Cloudflare Pages, etc.).
 
-## Waitlist signups
+## Landing page ↔ agent
 
-The signup form posts to `VITE_WAITLIST_URL` when set. Create `.env` from the example:
+Recommended flow (see agent repo onboarding doc):
 
-```bash
-cp .env.example .env
-```
+1. **CTA** — Text `VITE_IMESSAGE_NUMBER` on iMessage (blue bubble).
+2. **First messages** — Examples on the page (CPI/FOMC, watchlist, threshold).
+3. **Requirements** — iMessage only; shared-line users linked in Photon dashboard.
+4. **No web registration** — First text creates the user session in the agent.
 
-Point `VITE_WAITLIST_URL` at your backend — e.g. [Formspree](https://formspree.io), a small API route, or Resend/ConvertKit webhook. Expected JSON body: `{ "email": "user@example.com" }`.
-
-Without `VITE_WAITLIST_URL`, submit still shows a success state (useful for local demos); wire a real endpoint before production.
+The site does not call the agent API unless you add web signup later.
 
 ## Customize
 
-- Copy and CTAs: `src/App.tsx`
-- Signup behavior: `src/components/SignupForm.tsx`
+- Copy and sections: `src/App.tsx`
+- Get started block: `src/components/GetStarted.tsx`
+- Phone number env: `src/config.ts`
 - Styles: `src/App.css`, `src/index.css`

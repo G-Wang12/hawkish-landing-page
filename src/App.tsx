@@ -1,10 +1,11 @@
-import { SignupForm } from "./components/SignupForm";
+import { GetStarted } from "./components/GetStarted";
+import { formatPhoneDisplay, iMessageNumber } from "./config";
 import "./App.css";
 
 const features = [
   {
     title: "Plain-English preferences",
-    body: "Text what you care about — CPI, FOMC, Powell, your watchlist. No slash commands. The agent remembers and updates incrementally.",
+    body: "Text what you care about — CPI, FOMC, Powell, your watchlist. No slash commands. The agent remembers and updates incrementally for your chat.",
   },
   {
     title: "Stock watchlist",
@@ -24,25 +25,25 @@ const features = [
   },
   {
     title: "Live macro wire",
-    body: "A dedicated news engine streams filtered headlines over ZeroMQ; the agent analyzes and routes only what matches your settings.",
+    body: "A dedicated news engine streams filtered headlines; the agent analyzes and routes only what matches your settings.",
   },
 ];
 
 const steps = [
   {
     n: "01",
-    title: "Join the waitlist",
-    body: "Leave your email — we’ll send your iMessage line when your slot opens.",
+    title: "Text our iMessage line",
+    body: `Open Messages and text ${formatPhoneDisplay(iMessageNumber)}. Blue bubble only — not SMS.`,
   },
   {
     n: "02",
-    title: "Set preferences once",
-    body: "“Alert me on CPI and FOMC, watch NVDA, threshold 0.5, reputable sources only.”",
+    title: "Say what you want",
+    body: "No signup keyword — e.g. “Alert me on CPI and FOMC, watch NVDA, threshold 0.5.” You get a confirmation reply with your current settings.",
   },
   {
     n: "03",
     title: "Get proactive alerts",
-    body: "When macro news hits your filters with enough severity and trust, your phone buzzes — no app to open.",
+    body: "When macro news matches your filters with enough severity and source trust, your phone buzzes. Reply in-thread to dig deeper.",
   },
 ];
 
@@ -61,31 +62,33 @@ export default function App() {
         <nav className="site-nav">
           <a href="#features">Features</a>
           <a href="#how-it-works">How it works</a>
-          <a href="#signup" className="nav-cta">
-            Early access
+          <a href="#get-started" className="nav-cta">
+            Get started
           </a>
         </nav>
       </header>
 
       <main>
         <section className="hero">
-          <p className="eyebrow">Macro intelligence · iMessage</p>
-          <h1>
-            The headlines that move markets,
-            <em> in your Messages app</em>
-          </h1>
-          <p className="hero-lead">
-            Hawkish watches CPI, the Fed, your tickers, and the stories you
-            care about — then texts you when severity and source trust clear
-            your bar. Ask follow-ups in-thread; no dashboard required.
-          </p>
-          <div className="hero-cta">
-            <a href="#signup" className="btn btn-primary">
-              Request early access
-            </a>
-            <a href="#how-it-works" className="btn btn-ghost">
-              See how it works
-            </a>
+          <div className="hero-copy">
+            <p className="eyebrow">Macro intelligence · iMessage</p>
+            <h1>
+              The headlines that move markets,
+              <em> in your Messages app</em>
+            </h1>
+            <p className="hero-lead">
+              Hawkish watches CPI, the Fed, your tickers, and the stories you care
+              about — then texts you when severity and source trust clear your bar.
+              Text the line to start; no app install and no web account.
+            </p>
+            <div className="hero-cta">
+              <a href="#get-started" className="btn btn-primary">
+                Text us on iMessage
+              </a>
+              <a href="#how-it-works" className="btn btn-ghost">
+                See how it works
+              </a>
+            </div>
           </div>
 
           <div className="hero-preview" aria-label="Example alert conversation">
@@ -130,6 +133,7 @@ export default function App() {
             <p>
               A C++ news engine filters the firehose. A TypeScript agent scores
               each headline with Grok and routes alerts per chat — over iMessage.
+              Each thread is its own user; no separate signup API.
             </p>
           </div>
           <ul className="feature-grid">
@@ -177,8 +181,8 @@ export default function App() {
               <span className="stat-label">Severity &amp; source-trust thresholds</span>
             </div>
             <div className="stat">
-              <span className="stat-value">Live</span>
-              <span className="stat-label">Finnhub wire + macro keyword engine</span>
+              <span className="stat-value">Per chat</span>
+              <span className="stat-label">Your own keywords, watchlist &amp; thresholds</span>
             </div>
           </div>
         </section>
@@ -186,7 +190,12 @@ export default function App() {
         <section id="how-it-works" className="section steps">
           <div className="section-head section-head--center">
             <p className="eyebrow">How it works</p>
-            <h2>From waitlist to your first alert</h2>
+            <h2>From first text to your first alert</h2>
+            <p className="section-head-sub">
+              The landing page doesn&apos;t register you — texting the line does.
+              Spectrum delivers your thread to the agent; preferences are saved for
+              that conversation.
+            </p>
           </div>
           <ol className="step-list">
             {steps.map((s) => (
@@ -199,22 +208,23 @@ export default function App() {
           </ol>
         </section>
 
-        <section id="signup" className="section signup">
-          <div className="signup-inner">
-            <p className="eyebrow">Early access</p>
-            <h2>Be first on the waitlist</h2>
-            <p>
-              We&apos;re onboarding iMessage lines in batches. Drop your email
-              and we&apos;ll notify you when Hawkish is ready for your number.
+        <section id="get-started" className="section get-started-section">
+          <div className="get-started-inner">
+            <p className="eyebrow">Get started</p>
+            <h2>Text the line. You&apos;re in.</h2>
+            <p className="get-started-lead">
+              No web signup, invite code, or <code>REGISTER</code> message. Anyone
+              who can iMessage the public line can set preferences on first contact
+              and receive alerts when news matches.
             </p>
-            <SignupForm />
+            <GetStarted />
           </div>
         </section>
       </main>
 
       <footer className="site-footer">
         <span className="footer-brand">Hawkish</span>
-        <p>Macro alert agent · C++ engine + TypeScript · iMessage</p>
+        <p>Macro alert agent · Photon Spectrum · iMessage</p>
         <p className="footer-copy">
           © {new Date().getFullYear()} Hawkish. All rights reserved.
         </p>
