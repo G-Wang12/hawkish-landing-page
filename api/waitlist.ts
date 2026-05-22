@@ -1,4 +1,4 @@
-import { handleWaitlistSignup } from "../server/waitlist";
+import { handleWaitlistSignup } from "./_lib/waitlist.js";
 
 type VercelRequest = {
   method?: string;

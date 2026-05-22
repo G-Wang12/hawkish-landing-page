@@ -1,4 +1,4 @@
-import type { PhotonEnv } from "./env";
+import type { PhotonEnv } from "./env.js";
 
 const SPECTRUM_BASE = "https://spectrum.photon.codes";
 

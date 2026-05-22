@@ -1,4 +1,4 @@
-import { toE164 } from "./phone";
+import { toE164 } from "./phone.js";
 
 export type PhotonUserType = "shared" | "dedicated" | "auto";
 

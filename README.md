@@ -64,6 +64,6 @@ If someone texts before step 2 succeeds, Photon may show a registration gate —
 
 - Copy and sections: `src/App.tsx`
 - Signup + get started: `src/components/SignupForm.tsx`, `src/components/GetStarted.tsx`
-- Photon API: `server/photon.ts`, `server/waitlist.ts`
+- Photon API: `api/_lib/photon.ts`, `api/_lib/waitlist.ts`
 - Phone display: `src/config.ts`
 - Styles: `src/App.css`, `src/index.css`

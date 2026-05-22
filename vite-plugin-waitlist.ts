@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Plugin } from "vite";
-import { handleWaitlistSignup } from "./server/waitlist";
+import { handleWaitlistSignup } from "./api/_lib/waitlist.js";
 
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {

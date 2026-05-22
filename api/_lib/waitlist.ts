@@ -1,6 +1,6 @@
-import { getPhotonEnv } from "./env";
-import { createProjectUser } from "./photon";
-import { toE164 } from "./phone";
+import { getPhotonEnv } from "./env.js";
+import { createProjectUser } from "./photon.js";
+import { toE164 } from "./phone.js";
 
 export type WaitlistBody = {
   phone?: string;
