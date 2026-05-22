@@ -71,8 +71,8 @@ async function postUser(
   }
 
   let detail = `Photon API returned ${res.status}`;
-  if (json.message) detail = json.message;
-  else if (json.error) detail = json.error;
+  if (json.message) detail = String(json.message);
+  else if (json.error) detail = String(json.error);
 
   return { ok: false, status: res.status, detail };
 }

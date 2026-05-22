@@ -5,7 +5,31 @@ const endpoint =
   (import.meta.env.VITE_WAITLIST_URL as string | undefined)?.trim() ||
   "/api/waitlist";
 
-type WaitlistResponse = { ok: boolean; error?: string; textLine?: string };
+type WaitlistResponse = {
+  ok: boolean;
+  error?: string | { message?: string };
+  message?: string;
+  textLine?: string;
+};
+
+function messageFromApi(data: WaitlistResponse | null, status: number): string {
+  if (data && typeof data.error === "string") return data.error;
+  if (
+    data?.error &&
+    typeof data.error === "object" &&
+    typeof data.error.message === "string"
+  ) {
+    return data.error.message;
+  }
+  if (data && typeof data.message === "string") return data.message;
+  if (status === 503) {
+    return "Signup is temporarily unavailable. Try again later.";
+  }
+  if (status >= 500) {
+    return "Server error. Please try again in a moment.";
+  }
+  return "Something went wrong. Try again in a moment.";
+}
 
 export function SignupForm() {
   const [phone, setPhone] = useState("");
@@ -64,9 +88,7 @@ export function SignupForm() {
       }
 
       if (!res.ok || !data?.ok) {
-        throw new Error(
-          data?.error || "Something went wrong. Try again in a moment."
-        );
+        throw new Error(messageFromApi(data, res.status));
       }
 
       setTextLine(data?.textLine?.trim() || null);
