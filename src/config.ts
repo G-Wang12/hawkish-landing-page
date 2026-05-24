@@ -12,15 +12,55 @@ export function formatPhoneDisplay(e164: string): string {
   return e164;
 }
 
+/** How severity threshold works — used in the starter template and field guide. */
+export const thresholdExplanation =
+  "Each headline is scored for severity from 0 to 1.0. Set the minimum score you want alerted on — 0 means more news, 1.0 means only the most severe headlines.";
+
 /** Prefilled starter — bracketed parts are placeholders to replace before sending. */
-export const defaultStarterMessage =
-  "Alert me on [your topics], watch [tickers], threshold [0.0 - 1.0]";
+export const defaultStarterMessage = [
+  "Alert me on [your topics], watch [tickers]",
+  "",
+  "Severity threshold [on a 0–1.0 scale for headline severity. 0 = alert on more news, 1.0 = only the most severe headlines.]",
+].join("\n");
 
 /** Example first messages shown on the landing page (placeholders, not prescriptive topics). */
 export const firstMessageExamples = [
-  defaultStarterMessage,
+  "Alert me on [your topics], watch [tickers], severity threshold [0.5 on 0–1.0]",
   "Watch [tickers] for me",
-  "Only big alerts, threshold [0.8]",
+  "Only severe headlines, severity threshold [0.8 on 0–1.0]",
+] as const;
+
+/** Field-by-field guide for what users can text (shown on the landing page). */
+export const textableFields = [
+  {
+    field: "Topics",
+    example: "CPI, FOMC, inflation",
+    description:
+      "Macro keywords or themes. Name what you care about — empty topics can match broadly.",
+  },
+  {
+    field: "Watchlist",
+    example: "NVDA, TSLA",
+    description:
+      "Stock tickers to watch. Headlines mentioning these names are scored and filtered for you.",
+  },
+  {
+    field: "Severity threshold",
+    example: "0.5",
+    description: thresholdExplanation,
+  },
+  {
+    field: "Source trust",
+    example: "only reputable sources",
+    description:
+      "Optional. Filter out low-credibility publishers — wire services rank higher than aggregators.",
+  },
+  {
+    field: "Follow-ups",
+    example: "Why is this hawkish?",
+    description:
+      "Reply in the same chat within 30 minutes of an alert for Grok analysis on that headline.",
+  },
 ] as const;
 
 /** Opens Messages on Apple devices; uses iMessage when the recipient supports it. */

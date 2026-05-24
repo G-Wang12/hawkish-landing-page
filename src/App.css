@@ -308,6 +308,7 @@ main {
   background: #248bf5;
   color: #fff;
   border-bottom-right-radius: 4px;
+  white-space: pre-line;
 }
 
 .bubble--in {
@@ -529,6 +530,62 @@ main {
 
 .get-started-signup {
   margin-bottom: 0.5rem;
+}
+
+.get-started-messaging-guide {
+  margin: 1.25rem 0 1.75rem;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.get-started-messaging-guide h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.get-started-messaging-guide > p {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.get-started-field-list {
+  margin: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .get-started-field-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.5rem;
+  }
+}
+
+.get-started-field-list dt {
+  margin: 0 0 0.2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.get-started-field-list dd {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.get-started-field-example {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+}
+
+.get-started-field-example code {
+  font-size: 0.85em;
 }
 
 .get-started-divider {

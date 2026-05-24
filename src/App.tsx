@@ -17,7 +17,7 @@ const features = [
   },
   {
     title: "Severity you control",
-    body: "Tune a 0–1 threshold: lower means more alerts, higher means only market-moving headlines break through.",
+    body: "Each headline gets a severity score from 0 to 1.0. Set your minimum threshold — lower means more alerts, 1.0 means only the most market-moving news breaks through.",
   },
   {
     title: "Threaded follow-ups",
@@ -55,7 +55,7 @@ const steps = [
 const phraseExamples = [
   firstMessageExamples[0],
   firstMessageExamples[1],
-  "Only alert me from reputable sources, threshold [0.7]",
+  "Only alert me from reputable sources, severity threshold [0.7 on 0–1.0]",
   "Why is this hawkish?",
 ];
 
@@ -117,7 +117,7 @@ export default function App() {
                 <span className="bubble-label">Hawkish</span>
                 Got it — saved your macro preferences for this chat.
                 <br />
-                Tracked keywords: CPI, FOMC · Watchlist: NVDA · Threshold: 0.5
+                Tracked keywords: CPI, FOMC · Watchlist: NVDA · Severity threshold: 0.5
                 <br />
                 Source trust: any source
               </div>
@@ -169,7 +169,8 @@ export default function App() {
               Your first text can set preferences — no signup keyword. Add keywords,
               watch tickers, raise your threshold, or filter to reputable sources
               in one message or across a conversation. Settings merge incrementally;
-              a bad parse won&apos;t wipe what you saved.
+              a bad parse won&apos;t wipe what you saved. See{" "}
+              <a href="#what-to-text">what each field means</a> below the signup form.
             </p>
             <ul className="phrase-list">
               {phraseExamples.map((phrase) => (
@@ -186,7 +187,7 @@ export default function App() {
             </div>
             <div className="stat">
               <span className="stat-value">0–1</span>
-              <span className="stat-label">Severity &amp; source-trust thresholds</span>
+              <span className="stat-label">Headline severity scored 0–1.0</span>
             </div>
             <div className="stat">
               <span className="stat-value">Per chat</span>

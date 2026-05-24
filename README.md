@@ -66,7 +66,9 @@ If someone texts before step 2 succeeds on a shared plan, Photon may show a regi
 After signup, **Open in Messages** prefills a modular template from `src/config.ts`:
 
 ```text
-Alert me on [your topics], watch [tickers], threshold [0.5]
+Alert me on [your topics], watch [tickers]
+
+Severity threshold [0.5]: on a 0–1.0 scale for headline severity. 0 = alert on more news, 1.0 = only the most severe headlines.
 ```
 
 Bracketed parts are placeholders for the user to replace before sending.

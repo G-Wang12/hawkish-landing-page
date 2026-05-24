@@ -139,8 +139,8 @@ export function SignupForm() {
                 Open in Messages
               </a>
               <p className="signup-starter-hint">
-                A starter message is ready — replace the bracketed parts, then
-                send.
+                A starter message is ready — replace the bracketed parts (including
+                the severity threshold on 0–1.0), then send.
               </p>
             </div>
             <div className="signup-copy-block">

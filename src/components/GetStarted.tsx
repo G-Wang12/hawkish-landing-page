@@ -1,6 +1,7 @@
+import { Fragment } from "react";
 import { SignupForm } from "./SignupForm";
 
-import { firstMessageExamples } from "../config";
+import { firstMessageExamples, textableFields } from "../config";
 
 const firstMessages = [...firstMessageExamples];
 
@@ -9,6 +10,27 @@ export function GetStarted() {
     <div className="get-started">
       <div className="get-started-signup">
         <SignupForm />
+      </div>
+
+      <div id="what-to-text" className="get-started-messaging-guide">
+        <h3>What to text</h3>
+        <p>
+          Say any of this in plain English — on your first message or later. No
+          commands or signup keyword.
+        </p>
+        <dl className="get-started-field-list">
+          {textableFields.map(({ field, example, description }) => (
+            <Fragment key={field}>
+              <dt>{field}</dt>
+              <dd>
+                {description}{" "}
+                <span className="get-started-field-example">
+                  e.g. <code>{example}</code>
+                </span>
+              </dd>
+            </Fragment>
+          ))}
+        </dl>
       </div>
 
       <div className="get-started-grid">
