@@ -20,6 +20,10 @@ const features = [
     body: "Each headline gets a severity score from 0 to 1.0. Set your minimum threshold — lower means more alerts, 1.0 means only the most market-moving news breaks through.",
   },
   {
+    title: "Pause and resume",
+    body: "Text “pause alerts” when you want quiet — no pings until you say “resume alerts.” Your saved preferences stay put.",
+  },
+  {
     title: "Threaded follow-ups",
     body: "Reply “Why is this hawkish?” or “Summarize the report” in the same chat. Get Grok analysis on the alert you just received.",
   },
@@ -48,7 +52,7 @@ const steps = [
   {
     n: "04",
     title: "Get macro alerts",
-    body: "You get a confirmation reply when prefs are saved; alerts follow when headlines match your keywords, watchlist, and thresholds.",
+    body: "You get a confirmation reply when prefs are saved; alerts follow when headlines match your keywords, watchlist, and thresholds. Text “pause alerts” anytime you want them off; “resume alerts” when you’re back.",
   },
 ];
 
@@ -57,6 +61,8 @@ const phraseExamples = [
   firstMessageExamples[1],
   "Only alert me from reputable sources, severity threshold [0.7 on 0–1.0]",
   "Why is this hawkish?",
+  "Pause my alerts",
+  "Resume alerts",
 ];
 
 export default function App() {
@@ -84,15 +90,11 @@ export default function App() {
         <section className="hero">
           <div className="hero-copy">
             <p className="eyebrow">Macro intelligence · iMessage</p>
-            <h1>
-              The headlines that move markets,
-              <em> in your Messages app</em>
-            </h1>
+            <h1>Macro news alerts for traders — over iMessage</h1>
             <p className="hero-lead">
-              Hawkish watches the topics and tickers you choose — then texts you
-              when severity and source trust clear your bar. Request access first
-              so Photon routes your iMessage; then text preferences in plain
-              English on your first message.
+              Text your topics, tickers, and thresholds in plain English. We only
+              ping you when a headline clears your bar. Request access first so
+              Photon routes your iMessage; pause alerts anytime you want quiet.
             </p>
             <div className="hero-cta">
               <a href="#get-started" className="btn btn-primary">
@@ -168,9 +170,11 @@ export default function App() {
             <p>
               Your first text can set preferences — no signup keyword. Add keywords,
               watch tickers, raise your threshold, or filter to reputable sources
-              in one message or across a conversation. Settings merge incrementally;
-              a bad parse won&apos;t wipe what you saved. See{" "}
-              <a href="#what-to-text">what each field means</a> below the signup form.
+              in one message or across a conversation. Text &ldquo;pause alerts&rdquo;
+              when you don&apos;t want pings; &ldquo;resume alerts&rdquo; when you&apos;re
+              back. Settings merge incrementally; a bad parse won&apos;t wipe what you
+              saved. See <a href="#what-to-text">what each field means</a> below the
+              signup form.
             </p>
             <ul className="phrase-list">
               {phraseExamples.map((phrase) => (

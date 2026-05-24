@@ -61,6 +61,12 @@ export const textableFields = [
     description:
       "Reply in the same chat within 30 minutes of an alert for Grok analysis on that headline.",
   },
+  {
+    field: "Pause / resume",
+    example: "pause alerts · resume alerts",
+    description:
+      "Stop macro pings when you are off the desk or on vacation. Your keywords, watchlist, and thresholds stay saved until you resume.",
+  },
 ] as const;
 
 /** Opens Messages on Apple devices; uses iMessage when the recipient supports it. */

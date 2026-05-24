@@ -64,6 +64,10 @@ export function GetStarted() {
               source trust included).
             </li>
             <li>
+              Text &ldquo;pause alerts&rdquo; when you want quiet; &ldquo;resume
+              alerts&rdquo; when you want pings again — preferences are unchanged.
+            </li>
+            <li>
               Watchlist changes can take a few seconds to sync to the news engine.
               After an agent restart, text once to reload your preferences.
             </li>
