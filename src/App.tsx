@@ -1,18 +1,19 @@
 import { GetStarted } from "./components/GetStarted";
+import { defaultStarterMessage, firstMessageExamples } from "./config";
 import "./App.css";
 
 const features = [
   {
     title: "Plain-English preferences",
-    body: "Text what you care about — CPI, FOMC, Powell, your watchlist. No slash commands. The agent remembers and updates incrementally for your chat.",
+    body: "Text keywords, tickers, and thresholds in plain English — no commands or signup keyword. Settings merge incrementally per chat.",
   },
   {
     title: "Stock watchlist",
-    body: "Watch TSLA, NVDA, or any ticker. Headlines mentioning your names are filtered in real time and scored for impact.",
+    body: "Name any tickers to watch. Headlines mentioning those names are filtered in real time and scored for impact.",
   },
   {
     title: "Source trust scoring",
-    body: "Every alert labels publisher credibility — Reuters high, aggregators low. Set a minimum trust bar so noise never pings you.",
+    body: "Every alert labels publisher credibility — wire services high, aggregators low. Set a minimum trust bar so noise never pings you.",
   },
   {
     title: "Severity you control",
@@ -24,7 +25,7 @@ const features = [
   },
   {
     title: "Live macro wire",
-    body: "A dedicated news engine streams filtered headlines; the agent analyzes and routes only what matches your settings.",
+    body: "A C++ news engine streams filtered headlines; the agent analyzes and routes only what matches your settings.",
   },
 ];
 
@@ -32,23 +33,30 @@ const steps = [
   {
     n: "01",
     title: "Request access",
-    body: "Submit the phone number you use on iMessage. We register it with Photon so your texts reach Hawkish.",
+    body: "Submit the phone number you use on iMessage. We link it in Photon so your texts reach Hawkish (required on shared plans).",
   },
   {
     n: "02",
     title: "Text your Hawkish line",
-    body: "After signup you get a personal iMessage number to text. Use that line from the phone you registered — not someone else's.",
+    body: "Open Messages and text the line from signup — same phone you registered. No REGISTER or START keyword needed.",
   },
   {
     n: "03",
     title: "Set preferences",
-    body: "In plain English — e.g. CPI, FOMC, watch NVDA, threshold 0.5. Blue bubble only — not SMS.",
+    body: "Say what you want in plain English — topics, tickers, severity, source trust. Blue bubble only; SMS is not supported.",
   },
   {
     n: "04",
     title: "Get macro alerts",
     body: "You get a confirmation reply when prefs are saved; alerts follow when headlines match your keywords, watchlist, and thresholds.",
   },
+];
+
+const phraseExamples = [
+  firstMessageExamples[0],
+  firstMessageExamples[1],
+  "Only alert me from reputable sources, threshold [0.7]",
+  "Why is this hawkish?",
 ];
 
 export default function App() {
@@ -81,10 +89,10 @@ export default function App() {
               <em> in your Messages app</em>
             </h1>
             <p className="hero-lead">
-              Hawkish watches CPI, the Fed, your tickers, and the stories you care
-              about — then texts you when severity and source trust clear your bar.
-              Request access first; signup gives you a personal line to text for
-              alerts.
+              Hawkish watches the topics and tickers you choose — then texts you
+              when severity and source trust clear your bar. Request access first
+              so Photon routes your iMessage; then text preferences in plain
+              English on your first message.
             </p>
             <div className="hero-cta">
               <a href="#get-started" className="btn btn-primary">
@@ -103,13 +111,15 @@ export default function App() {
                 <span className="phone-contact">Hawkish</span>
               </div>
               <div className="bubble bubble--out">
-                Alert me on CPI and FOMC, watch NVDA, threshold 0.5
+                {defaultStarterMessage}
               </div>
               <div className="bubble bubble--in">
                 <span className="bubble-label">Hawkish</span>
-                Got it — saved your macro preferences.
+                Got it — saved your macro preferences for this chat.
                 <br />
-                Tracked: CPI, FOMC · Watchlist: NVDA · Threshold: 0.5
+                Tracked keywords: CPI, FOMC · Watchlist: NVDA · Threshold: 0.5
+                <br />
+                Source trust: any source
               </div>
               <div className="bubble bubble--in bubble--alert">
                 <span className="bubble-label">Macro alert</span>
@@ -138,7 +148,7 @@ export default function App() {
             <p>
               A C++ news engine filters the firehose. A TypeScript agent scores
               each headline with Grok and routes alerts per chat — over iMessage,
-              once your number is on the list.
+              once Photon delivers your texts to the agent.
             </p>
           </div>
           <ul className="feature-grid">
@@ -156,24 +166,17 @@ export default function App() {
             <p className="eyebrow">Talk like a human</p>
             <h2>No commands. Just text.</h2>
             <p>
-              After you&apos;re enabled, add keywords, watch tickers, raise your
-              threshold, or filter to reputable sources — in one message or across
-              a conversation. Settings merge incrementally; a bad parse won&apos;t
-              wipe what you saved.
+              Your first text can set preferences — no signup keyword. Add keywords,
+              watch tickers, raise your threshold, or filter to reputable sources
+              in one message or across a conversation. Settings merge incrementally;
+              a bad parse won&apos;t wipe what you saved.
             </p>
             <ul className="phrase-list">
-              <li>
-                <code>Alert me on CPI and FOMC, threshold 0.5</code>
-              </li>
-              <li>
-                <code>Watch TSLA and NVDA for me</code>
-              </li>
-              <li>
-                <code>Only alert me from reputable sources</code>
-              </li>
-              <li>
-                <code>Why is this hawkish?</code>
-              </li>
+              {phraseExamples.map((phrase) => (
+                <li key={phrase}>
+                  <code>{phrase}</code>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="stat-panel">
@@ -198,8 +201,8 @@ export default function App() {
             <h2>From request to your first alert</h2>
             <p className="section-head-sub">
               Photon must route your iMessage to our agent before Hawkish can reply.
-              Request access here — signup links your number in Photon, then you
-              text the line.
+              Request access here to link your number (shared plans), then text
+              preferences in plain English — no magic word required.
             </p>
           </div>
           <ol className="step-list">
@@ -218,9 +221,10 @@ export default function App() {
             <p className="eyebrow">Get started</p>
             <h2>Request access, then text the line</h2>
             <p className="get-started-lead">
-              Submit the phone you&apos;ll use on iMessage. Signup registers you with
-              Photon and shows your personal Hawkish line — then text preferences
-              and receive macro alerts. Texting before signup won&apos;t reach Hawkish.
+              Submit the phone you&apos;ll use on iMessage. Signup links your number
+              in Photon and shows the line to text — then send preferences in plain
+              English on your first message. Texting before signup won&apos;t reach
+              Hawkish (Photon&apos;s gate, not the agent).
             </p>
             <GetStarted />
           </div>

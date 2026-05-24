@@ -1,5 +1,10 @@
-import { useState, type FormEvent } from "react";
-import { formatPhoneDisplay } from "../config";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import {
+  buildMessagesUrl,
+  defaultStarterMessage,
+  formatPhoneDisplay,
+  isAppleMessagesDevice,
+} from "../config";
 
 const endpoint =
   (import.meta.env.VITE_WAITLIST_URL as string | undefined)?.trim() ||
@@ -40,6 +45,14 @@ export function SignupForm() {
     "idle"
   );
   const [errorMessage, setErrorMessage] = useState("");
+  const autoOpenedRef = useRef(false);
+
+  useEffect(() => {
+    if (status !== "success" || !textLine || autoOpenedRef.current) return;
+    if (!isAppleMessagesDevice()) return;
+    autoOpenedRef.current = true;
+    window.location.href = buildMessagesUrl(textLine, defaultStarterMessage);
+  }, [status, textLine]);
 
   async function copyTextLine() {
     if (!textLine) return;
@@ -108,31 +121,39 @@ export function SignupForm() {
 
   if (status === "success") {
     const displayLine = textLine ? formatPhoneDisplay(textLine) : null;
+    const messagesUrl = textLine
+      ? buildMessagesUrl(textLine, defaultStarterMessage)
+      : null;
 
     return (
       <div className="signup-success" role="status">
         <p className="signup-success-title">You&apos;re on the list.</p>
-        {displayLine ? (
+        {displayLine && messagesUrl ? (
           <>
             <p className="signup-success-body">
-              Text this number from the same phone you signed up with. It&apos;s
+              Open Messages from the same phone you signed up with. It&apos;s
               your personal Hawkish line — not shared with other users.
             </p>
-            <div className="get-started-number-block">
+            <div className="signup-success-actions">
+              <a href={messagesUrl} className="btn btn-primary signup-open-messages">
+                Open in Messages
+              </a>
+              <p className="signup-starter-hint">
+                A starter message is ready — replace the bracketed parts, then
+                send.
+              </p>
+            </div>
+            <div className="signup-copy-block">
               <p className="get-started-label">Your Hawkish line (iMessage)</p>
+              <p className="signup-success-number">{displayLine}</p>
               <button
                 type="button"
-                className="get-started-number"
+                className="btn btn-ghost signup-copy-number"
                 onClick={copyTextLine}
                 aria-label={`Copy number ${textLine}`}
               >
-                {displayLine}
+                {copied ? "Copied" : "Copy number"}
               </button>
-              <p className="get-started-copy-hint">
-                {copied
-                  ? "Copied — paste into Messages"
-                  : "Tap to copy, then open Messages"}
-              </p>
             </div>
           </>
         ) : (
